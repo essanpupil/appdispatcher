@@ -1,9 +1,8 @@
-from flask import Flask, Response
+from flask import Flask, Response, render_template
 
 
-def create_app(config_filename):
-    app = Flask(__name__)
-    app.config.from_pyfile(config_filename)
+def create_app(template_dir):
+    app = Flask(__name__, template_folder=template_dir)
 
     app.add_url_rule('/', 'home', home)
     app.add_url_rule('/<object_name>/area/<int:length>/<int:width>/', 'area', area)
@@ -12,7 +11,7 @@ def create_app(config_filename):
 
 
 def home():
-    return "Hello World!"
+    return render_template('index.html')
 
 
 def area(object_name, length, width):
